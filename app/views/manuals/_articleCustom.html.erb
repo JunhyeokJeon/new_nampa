@@ -1,0 +1,74 @@
+<div class="manuals-best-wrap">
+  <% if current_user.userspec %>
+    <h4 align="center" class="manuals-best-title">
+      <span style="color: #1A2E65;"><%= current_user.nickname %></span> 님에게 제공되는 맞춤 메뉴얼 상위 4개입니다.
+    </h4>
+    <p align="center" class="custom-title-below" style="color: #7F8C8D;">
+      <span class="badge badge-pill badge-success">
+        <%= current_user.userspec['skintype'] %>
+      </span>
+      <span class="badge badge-pill badge-success">
+        <%= current_user.userspec['age'] %>
+      </span>
+      <% box =['atopy', 'pimple', 'allergy', 'bb', 'lip', 'eyebrow', 'eyeline'] %>
+      <% box.each do |key| %>
+        <% if current_user.userspec[key] == true %>
+          <span class="badge badge-pill badge-info">
+            <%= key %>
+          </span>
+        <% end %>
+      <% end %>정보를 반영했습니다.
+      <br>
+    </p>
+
+    <div class="row d-flex justify-content-center manuals-best-box">
+      <% @manuals_best.each do |manual| %>
+        <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-center">
+              <div class="card-header-title eye-padding-bottom">
+                <h4>
+                  <% if manual.title.length > 8 %>
+                    <%= link_to (manual.title[0,8] + " .."), manual_path(manual), class: "manual-card-title" %>
+                  <% else %>
+                    <%= link_to manual.title, manual_path(manual), class: "manual-card-title" %>
+                  <% end %>
+                </h4>
+                <span style="color: #afafaf;"><%= manual.impressionist_count %>&nbsp Views</span>&nbsp
+                <%= image_tag "eye.png" %>
+              </div>
+              <div class="card-header-category">
+                <span class="category-clip badge badge-primary">
+                  <%= manual.category %>
+                </span>
+              </div>
+            </div>
+
+            <div class="card-body manual-card-body">
+              <%= link_to image_tag(manual.image.url(:thumb)), manual_path(manual) %>
+            </div>
+
+            <div class="card-bottom d-flex justify-content-center">
+              <div class="card-bottom-left">
+                <%= time_ago_in_words(manual.created_at) %> 전
+              </div>
+              <div class="card-bottom-right">
+                <img style="height:25px;" src="https://pbs.twimg.com/profile_images/975321969649336320/VuUg1XZy.jpg"></img>
+                <%= manual.comments.count %>&nbsp
+
+                <%= link_to like_manual_path(manual), method: :put, class: "manual-like" do %>
+                  <img style="height:25px;" src="https://www.publicdomainpictures.net/pictures/40000/velka/red-heart-1362916005N5Z.jpg"></img>
+                  <%= manual.get_upvotes.size %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h4 align="center" class="manuals-best-title">
+      <span style="color: #1A2E65;"><%= current_user.nickname %></span> 님! <%= link_to "유저스펙", new_userspec_path %></strong>을 등록해보세요.
+    </h4>
+  <% end %>
+</div>

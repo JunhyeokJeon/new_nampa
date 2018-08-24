@@ -1,0 +1,28 @@
+<h1>Custom#info</h1>
+<p>Find me in app/views/custom/info.html.erb</p>
+
+<% if current_user %>
+  <% if current_user.userspec %>
+    <p>피부타입: <%= @userspec.skintype %></p>
+    <hr>
+    <p>age: <%= @userspec.age %></p>
+    <hr>
+    <div class="skin_special_info">
+      <h5>피부 특이정보</h5>
+      <p>아토피: <%= @userspec.atopy %></p>
+      <p>여드름: <%= @userspec.pimple %></p>
+      <p>알러지: <%= @userspec.allergy %></p>
+    </div>
+    <hr>
+    <div class="cosmestic_volume">
+      <h5>피부 특이정보</h5>
+      <p>BB: <%= @userspec.bb %></p>
+      <p>립: <%= @userspec.lip %></p>
+      <p>눈썹: <%= @userspec.eyebrow %></p>
+      <p>아이라인: <%= @userspec.eyebrow %></p>
+      <p>색조: <%= @userspec.eyeline %></p>
+    </div>
+  <% else %>
+    <%= link_to "New MySpec", new_userspec_path %>
+  <% end %>
+<% end %>

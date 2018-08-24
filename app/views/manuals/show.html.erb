@@ -1,0 +1,76 @@
+<div class="show-wrap">
+  <div class="show-header">
+    <span class="show-title"><%= @manual.title %></span> <br>
+    <span class="badge badge-pill badge-secondary"  style="height:20px;">
+      <%= @manual.category %>
+    </span>
+    <span class="badge badge-pill badge-success"  style="height:20px; margin-left:5px;">
+      <%= @manual.skintype %>
+    </span>
+    <span class="badge badge-pill badge-success"  style="height:20px; margin-left:5px;">
+      <%= @manual.age %>
+    </span>
+     <!-- True인 값의 제목을 가져오는 함수 -->
+    <% manual_menu = [@manual.atopy, @manual.pimple, @manual.allergy, @manual.bb, @manual.lip, @manual.eyebrow, @manual.eyeline] %>
+    <% box =['atopy', 'pimple', 'allergy', 'bb', 'lip', 'eyebrow', 'eyeline'] %>
+    <% key = 0 %>
+    <% manual_menu.each do |menu| %>
+      <% if menu == true %>
+        <span class="badge badge-pill badge-info" style="height:20px; margin-left:5px;">
+        <p> <%= box[key] %> </p>
+        </span>
+        <% key = key + 1 %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="show-body">
+    <%= @manual.content.html_safe %>
+  </div>
+
+  <div class="show-footer d-flex justify-content-center">
+    <div class="show-footer-left">
+      <p><%= time_ago_in_words(@manual.created_at) %> 전</p>
+    </div>
+    <div class="show-footer-right">
+      <p>
+      <img style="height:25px;"
+           src="https://pbs.twimg.com/profile_images/975321969649336320/VuUg1XZy.jpg" />
+      <%= @manual.comments.count %>&nbsp
+
+      <%= link_to like_manual_path(@manual), method: :put, class: "manual-like" do %>
+        <img style="height:25px;" src="https://www.publicdomainpictures.net/pictures/40000/velka/red-heart-1362916005N5Z.jpg">
+        <%= @manual.get_upvotes.size %>
+      <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="show-comments" >
+    <% @manual.comments.each do |c| %>
+      <div class="comments-line d-flex justify-content-center">
+        <div class="comments-line-left">
+          <strong><%= c.user.nickname %></strong>&nbsp
+          <span class="comments-contents"><%= c.body %></span>
+        </div>
+        <% if current_user == c.user %>
+          <div class="comments-line-middle">
+            <%= time_ago_in_words(c.created_at) %> 전
+          </div>
+
+          <div class="comments-line-right">
+            <a class="delete-comment" href="<%= manual_comment_path(@manual, c) %>" data-method="delete" data-confirm="정말로 삭제하시겠습니까?">x</a>
+          </div>
+        <% else %>
+          <div class="comments-line-middle comments-line-middle-not">
+            <%= time_ago_in_words(c.created_at) %> 전
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= render "comments/form" %>
+  </div>
+
+
+</div>

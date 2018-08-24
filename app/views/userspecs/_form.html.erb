@@ -1,0 +1,71 @@
+<%= form_for(userspec) do |f| %>
+  <% if userspec.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(userspec.errors.count, "error") %> prohibited this userspec from being saved:</h2>
+
+      <ul>
+      <% userspec.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="d-flex justify-content-start new-form-line">
+    <div class="field">
+      <%= f.label "피부 타입", class: "us-label" %>
+      <%= f.select( :skintype, ['건성', '지성', '복합성', '중성', '민감성'], {}, { :class => 'form-control input-select'}) %>
+    </div>
+    <div class="field" style="margin-left: 20px;">
+      <%= f.label "연령대", class: "us-label" %>
+      <%= f.select( :age, ['10대', '20대초반', '20대후반', '30대초반', '30대후반', '40대이상'],  {}, { :class => 'form-control input-select'}) %>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-start new-form-line" style="margin: 10px 0;">
+    <div class="field">
+      <%= f.label "아토피", class: "us-label" %>
+      <%= f.check_box :atopy, class: "spec-detail" %>
+    </div>
+    <div class="field">
+      <%= f.label "여드름", class: "us-label" %>
+      <%= f.check_box :pimple, class: "spec-detail" %>
+    </div>
+    <div class="field">
+      <%= f.label "알러지", class: "us-label" %>
+      <%= f.check_box :allergy, class: "spec-detail" %>
+    </div>
+    <div class="field">
+      <%= f.label "BB", class: "us-label" %>
+      <%= f.check_box :bb, class: "spec-detail"%>
+    </div>
+    <div class="field">
+      <%= f.label "입술", class: "us-label" %>
+      <%= f.check_box :lip, class: "spec-detail" %>
+    </div>
+    <div class="field">
+      <%= f.label "눈썹", class: "us-label" %>
+      <%= f.check_box :eyebrow, class: "spec-detail" %>
+    </div>
+    <div class="field">
+      <%= f.label "아이라인", class: "us-label" %>
+      <%= f.check_box :eyeline, class: "spec-detail" %>
+    </div>
+    <div class="field">
+      <%= f.label "색조", class: "us-label" %>
+      <%= f.check_box :color, class: "spec-detail" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label "피부 톤: 1~30", class: "us-label" %>
+    <%= f.number_field :skincolor, type: "range", class: "custom-range", min: 0, max: 30, step: 1, id: "customRange3"  %>
+  </div>
+
+  <div align="center">
+    <div class="actions" style="margin: 20px 0px;">
+      <%= f.submit "작성", class:"btn btn-secondary", style:"margin-right: 10px;" %>
+      <%= link_to '취소', :back, class:"btn btn-secondary", style:"margin-left: 10px;" %>
+    </div>
+  </div>
+<% end %>

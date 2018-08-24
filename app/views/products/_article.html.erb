@@ -1,0 +1,43 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Categroy</th>
+      <th scope="col">image</th>
+      <th scope="col">Info</th>
+      <th scope="col">Skintype</th>
+      <th scope="col">Age</th>
+      <th scope="col">Skincolor</th>
+      <th scope="col">edit</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><br><strong><%= product.category %></strong></td>
+        <td><%= link_to image_tag(product.image.url(:thumb), size:"70x70"), product_path(product) %></td>
+        <td><%= product.name %><br><%= product.price %><br><%= product.brand %></td>
+        <td><br><%= product.skintype %></td>
+        <td><br><%= product.age %></td>
+        <td><br><%= product.skincolor %></td>
+        <td>
+        <% if current_user && current_user.roles.first.name == 'admin' %><br>
+            <span class="category-clip badge badge-primary">
+              <%= link_to 'Edit', edit_product_path(product), style:"color: inherit;"  %><br>
+            </span>
+            <span class="category-clip badge badge-primary">
+              <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, style:"color: inherit;" %></td>
+            </span>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<div align="center" style="margin-bottom:15%;">
+<% if current_user && current_user.roles.first.name == 'admin' %>
+  <%= link_to 'New Product', new_product_path, class:"btn btn-secondary" %>
+<% end %>
+</div>

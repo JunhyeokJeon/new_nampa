@@ -1,0 +1,77 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@font-face { font-family: 'Binggrae-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae-Bold.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+
+/* banner */
+.main-banner-wrap {
+  height: 300px !important;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+/* 남파의 데이터 */
+.main-article-logo img {
+  width: 200px;
+  display: block;
+  margin: 20px auto 0 auto;
+}
+.count-box-wrap { margin: 50px 0 20px 0; }
+.count-boxes-outer {
+  width: 150px;
+  margin: 0 40px;
+}
+.count-boxes {
+  width: 150px;
+  height: 150px;
+  background: #555;
+  border-radius: 50%;
+
+}
+.count-boxes img {
+  width: 80px;
+  line-height: 150px;
+  display: block;
+  margin: 0 auto;
+}
+.count-boxes img:hover {
+  opacity: 0.5;
+}
+.count-text {
+  margin-top: 20px;
+  font-size: 0.8em;
+  font-family: 'Binggrae-Bold';
+  text-align: center;
+}
+.counting {
+  font-size: 2em;
+  font-family: 'Binggrae-Bold';
+  text-align: center;
+}
+
+/* 최근 제품/제품 */
+.home-eye-span { display:block; margin-top: 5px; }
+.main-article-1 {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.main-article-1>h3 {
+  margin-bottom: 15px;
+  font-family: 'Binggrae-Bold';
+}
+.main-article-card {
+  border-radius: 0!important;
+}
+.main-article-card .card-body {
+  padding: 0 10px 10px 10px !important;
+}
+.main-article-card .card-body img { width: 100%; height: 150px; }
+.manual-card-header { margin-bottom: 10px!important; }
+.manual-card-bottom { border: 1px solid #efefef; padding-top: 10px; }
+.manual-card-bottom p { text-align: center; }
+.manual-card-bottom p strong { display:block; }
+.manual-card-bottom-wrap { padding: 0 10px; }
+.manual-card-bottom-wrap a { text-decoration: none !important; color: black; }
+.manual-card-bottom-wrap a .manual-card-bottom:hover { color: black; background: #efefef; border-color: #fff; }

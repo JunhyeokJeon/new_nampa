@@ -1,0 +1,11 @@
+<%= render "header" %>
+<%= render "articleCustom" %>
+<%= render "article" %>
+
+<% if current_user && current_user.roles.first.name == 'admin' %>
+  <%= link_to '새 메뉴얼 등록', new_manual_path,
+              class: "btn btn-primary",
+              style: "display: block; width: 20%; margin: 20px auto;" %>
+<% end %>
+
+<!-- <%= @manualArray %> -->

@@ -1,0 +1,15 @@
+<div class="users-wrap">
+  <h3 class="registration-title" align="center"><strong>회원가입</strong></h3>
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+    <div class="form-inputs regi-form">
+      <%= f.input :email, required: true, autofocus: true, input_html: { autocomplete: "off" }, class: "regi-input" %>
+      <%= f.input :nickname, required: true, autofocus: true, input_html: { autocomplete: "off" }, class: "regi-input" %>
+      <%= f.input :phone, required: true, autofocus: true, placeholder: "010-xxxx-xxxx", class: "password-color", input_html: { autocomplete: "off" }, class: "regi-input" %>
+      <%= f.input :password, required: true, input_html: { class: "password-color" }, class: "regi-input" %>
+      <%= f.input :password_confirmation, required: true, class: "regi-input" %>
+      <%= f.button :submit, "회원가입", class: "regi-submit-btn" %>
+    </div>
+  <% end %>
+</div>

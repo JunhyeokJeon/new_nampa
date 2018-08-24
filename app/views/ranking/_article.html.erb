@@ -1,0 +1,42 @@
+<div align="center">
+  <div class="ranking-best-wrap">
+    <div class="ranking-wrap">
+      <% index = 1 %>
+      <% @products.each do |product| %>
+        <div class="ranking-box d-flex justify-content-center">
+          <div class="ranking-box-rank">
+            <h1 style="text-align:center"><%= index %></h1>
+            <span class="badge badge-pill badge-warning">
+              <%= product.category %>
+            </span>
+          </div>
+          <div class="ranking-box-img">
+            <%= link_to image_tag(product.image.url(:thumb), size:"100x100"), product %>
+          </div>
+          <div class="ranking-box-contents">
+            <p align="left">
+              <span class="ranking-brand"><%= product.brand %></span><br>
+              <%= link_to product.name, product, class: "ranking-each-a" %>
+            </p>
+            <p align="left">
+              <%= product.price %> 원
+            </p>
+          </div>
+          <div class="ranking-box-review d-flex align-items-center">
+            <% k = product.score.floor()  %>
+
+            <span style="font-size: 1.7em;"><%= product.score %></span>&nbsp&nbsp
+            <span style="font-size: 1.2em; color: red;"><%= '♥'*k %></span>
+            <span style="font-size: 1.2em; color: #afafaf;"><%= '♥'* (5-k)%></span>
+
+            &nbsp&nbsp(<%= product.reviews.count %>)
+          </div>
+        </div>
+        <% index += 1 %>
+        <% if @products.length != index-1 %>
+          <hr style="width:85%;">
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

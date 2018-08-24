@@ -1,0 +1,45 @@
+<div class="row d-flex justify-content-center manuals-wrap">
+  <% @manuals.each do |manual| %>
+    <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+      <div class="card">
+        <div class="card-header d-flex justify-content-center">
+          <div class="card-header-title">
+            <h4>
+              <% if manual.title.length > 8 %>
+                <%= link_to (manual.title[0,8] + " .."), manual_path(manual), class: "manual-card-title" %>
+              <% else %>
+                <%= link_to manual.title, manual_path(manual), class: "manual-card-title" %>
+              <% end %>
+            </h4>
+            <span style="color: #afafaf;"><%= manual.impressionist_count %>&nbsp Views</span>&nbsp
+            <%= image_tag "eye.png" %>
+          </div>
+          <div class="card-header-category">
+            <span class="category-clip badge badge-primary">
+              <%= manual.category %>
+            </span>
+          </div>
+        </div>
+
+        <div class="card-body manual-card-body">
+          <%= link_to image_tag(manual.image.url(:thumb)), manual_path(manual) %>
+        </div>
+
+        <div class="card-bottom d-flex justify-content-center">
+          <div class="card-bottom-left">
+            <%= time_ago_in_words(manual.created_at) %> 전
+          </div>
+          <div class="card-bottom-right">
+            <img style="height:25px;" src="https://pbs.twimg.com/profile_images/975321969649336320/VuUg1XZy.jpg"></img>
+            <%= manual.comments.count %>&nbsp
+
+            <%= link_to like_manual_path(manual), method: :put, class: "manual-like" do %>
+              <img style="height:25px;" src="https://www.publicdomainpictures.net/pictures/40000/velka/red-heart-1362916005N5Z.jpg"></img>
+              <%= manual.get_upvotes.size %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,23 @@
+<div class="users-wrap">
+  <h3 class="registration-title" align="center"><strong>내 정보 수정하기</strong></h3>
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs regi-form">
+      <%= f.input :email, required: true, autofocus: true, input_html: { autocomplete: "off" }, class: "regi-input" %>
+      <%= f.input :nickname, required: true, autofocus: true, input_html: { autocomplete: "off" } %>
+      <%= f.input :phone, required: true, autofocus: true, placeholder: "010-xxxx-xxxx", class: "password-color", input_html: { autocomplete: "off" } %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <% end %>
+
+      <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+      <%= f.input :password_confirmation, required: false %>
+      <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+
+      <%= f.button :submit, "수정하기", class: "regi-submit-btn" %>
+    </div>
+  <% end %>
+</div>

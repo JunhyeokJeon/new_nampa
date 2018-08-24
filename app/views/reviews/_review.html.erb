@@ -1,0 +1,28 @@
+<!-- <div class="">
+  <p class=""><strong><%= review.user.email %></strong></p>
+  <div class="star-rating" data-score=<%= review.rating %>></div>
+  <p class=""><%= review.review %></p>
+  <p class=""><%= time_ago_in_words(review.created_at) %> Ago</p>
+  <% if current_user %>
+    <% if review.user == current_user %>
+      <p>
+        <%= link_to 'Delete', [review.product, review],
+                      method: :delete,
+                      class: "btn btn-primary",
+                      data: { confirm: 'Are you sure?' }
+        %>
+      </p>
+    <% end %>
+  <% end %>
+<div>
+<hr>
+
+<script>
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+</script> -->

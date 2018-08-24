@@ -1,0 +1,166 @@
+
+
+<div id="carouselExampleControls" class="carousel slide main-banner-wrap" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <%= link_to image_tag("banner1.png", :class => "banner-img d-block w-100"), root_path, class: "banner-a" %>
+    </div>
+    <div class="carousel-item">
+      <%= link_to image_tag("banner2.png", :class => "banner-img d-block w-100"), root_path, class: "banner-a" %>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div class="main-article-1 main-article-count">
+  <div class="count-box-wrap d-flex justify-content-center">
+    <div class="count-boxes-outer">
+      <div class="count-boxes d-flex align-items-center" style="background: #47b8e0;">
+        <%= image_tag "icon-1.png" %>
+      </div>
+      <p class="count-text">등록된 뷰티 설명서 수</p>
+      <p id="manuals" class="counting"></p>
+    </div>
+    <div class="count-boxes-outer">
+      <div class="count-boxes d-flex align-items-center" style="background: #ffc952;">
+        <%= image_tag "icon-2.png" %>
+      </div>
+      <p class="count-text">등록된 제품 수</p>
+      <p id="products" class="counting"></p>
+    </div>
+    <div class="count-boxes-outer">
+      <div class="count-boxes d-flex align-items-center" style="background: #ff7473;">
+        <%= image_tag "icon-3.png" %>
+      </div>
+      <p class="count-text">솔직 담백한 리뷰 수</p>
+      <p id="reviews" class="counting"></p>
+    </div>
+  </div>
+</div>
+
+<div class="main-article-1">
+  <h3><strong>최근 올라온 뷰티설명서</strong></h3>
+  <div class="row d-flex justify-content-center card-wrap">
+    <% @manuals.each do |manual| %>
+      <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+        <div class="card main-article-card">
+          <div class="card-header manual-card-header">
+            <span class="badge badge-pill badge-warning"><%= manual.category %></span>&nbsp
+            <% if manual.title.length > 7 %>
+              <%= manual.title[0,8] %> ..
+            <% else %>
+              <%= manual.title  %>
+            <% end %> <br>
+
+            <span style="color: #afafaf;" class="home-eye-span">
+              <%= manual.impressionist_count %> Views
+              <%= image_tag "eye.png" %>
+            </span>
+          </div>
+          <div class="card-body">
+            <%= link_to image_tag(manual.image.url(:thumb)), manual_path(manual) %>
+          </div>
+          <div class="manual-card-bottom-wrap">
+            <a href="<%= manual_path(manual) %>">
+              <div class="card-bottom manual-card-bottom">
+                <p>
+                  <strong>관련도</strong>
+                  <% manual_menu = [manual.atopy, manual.pimple, manual.allergy, manual.bb, manual.lip, manual.eyebrow, manual.eyeline] %>
+                  <% box =['atopy', 'pimple', 'allergy', 'bb', 'lip', 'eyebrow', 'eyeline'] %>
+                  <% key = 0 %>
+                  <% manual_menu.each do |menu| %>
+                    <% if menu == true %>
+                      <span class="badge badge-info" style="height:20px; margin-left:5px;">
+                      <%= box[key] %>
+                      </span>
+                      <% key = key + 1 %>
+                    <% end %>
+                  <% end %>
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="main-article-1">
+  <h3><strong>최근 올라온 제품</strong></h3>
+  <div class="row d-flex justify-content-center card-wrap">
+    <% @products.each do |product| %>
+      <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+        <div class="card main-article-card">
+          <div class="card-header manual-card-header">
+            <span class="badge badge-pill badge-warning"><%= product.category %></span>&nbsp
+            <% if product.name.length > 7 %>
+              <%= product.name[0,8] %> ..
+            <% else %>
+              <%= product.name  %>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <%= link_to image_tag(product.image.url(:thumb)), product_path(product) %>
+          </div>
+          <div class="manual-card-bottom-wrap">
+            <a href="<%= product_path(product) %>">
+              <div class="card-bottom manual-card-bottom">
+                <p>
+                  <strong>관련도</strong>
+                  <% product_menu = [product.atopy, product.pimple, product.allergy, product.bb, product.lip, product.eyebrow, product.eyeline] %>
+                  <% box =['atopy', 'pimple', 'allergy', 'bb', 'lip', 'eyebrow', 'eyeline'] %>
+                  <% key = 0 %>
+                  <% product_menu.each do |menu| %>
+                    <% if menu == true %>
+                      <span class="badge badge-info" style="height:20px; margin-left:5px;">
+                      <%= box[key] %>
+                      </span>
+                      <% key = key + 1 %>
+                    <% end %>
+                  <% end %>
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  function numberCounter(target_frame, target_number) {
+      this.count = 0; this.diff = 0;
+      this.target_count = parseInt(target_number);
+      this.target_frame = document.getElementById(target_frame);
+      this.timer = null;
+      this.counter();
+  };
+      numberCounter.prototype.counter = function() {
+          var self = this;
+          this.diff = this.target_count - this.count;
+
+          if(this.diff > 0) {
+              self.count += Math.ceil(this.diff / 5);
+          }
+
+          this.target_frame.innerHTML = this.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+          if(this.count < this.target_count) {
+              this.timer = setTimeout(function() { self.counter(); }, 70);
+          } else {
+              clearTimeout(this.timer);
+          }
+      };
+  new numberCounter("reviews", <%= @reviews_all.count %>);
+  new numberCounter("products", <%= @products_all.count %>);
+  new numberCounter("manuals", <%= @manuals_all.count %>);
+</script>

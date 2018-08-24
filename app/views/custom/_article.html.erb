@@ -1,0 +1,69 @@
+<h3 align="center" class="custom-category-title custom-category-header">
+  <span style="color: #1A2E65;"><%= current_user.nickname %></span> 님의 맞춤제품 정보입니다.
+</h3>
+<p align="center" class="custom-title-below" style="color: #7F8C8D;">
+  <span class="badge badge-pill badge-success">
+    <%= current_user.userspec['skintype'] %>
+  </span>
+  <span class="badge badge-pill badge-success">
+    <%= current_user.userspec['age'] %>
+  </span>
+  <% box =['atopy', 'pimple', 'allergy', 'bb', 'lip', 'eyebrow', 'eyeline'] %>
+  <% box.each do |key| %>
+    <% if current_user.userspec[key] == true %>
+      <span class="badge badge-pill badge-info">
+        <%= key %>
+      </span>
+    <% end %>
+  <% end %>정보를 반영했습니다.
+  <br>
+</p>
+<% (0..3).each do |i| %>
+  <div class="custom-products-wrap">
+    <div class="custom-category-title">
+      당신의 <strong class="custom-category-span"><%= @products_best[i][0] %></strong>정보에 알맞은 상위 1~4위 제품 입니다.
+    </div>
+    <div class="row d-flex justify-content-center" >
+      <% @products_best[i][1].each do |product| %>
+        <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+          <div class="card">
+
+            <div class="card-header shop-card-header d-flex justify-content-center">
+              <div class="card-header-title">
+                <h4>
+                  <% if product.name.length > 6 %>
+                    <%= link_to (product.name[0,6] + " .."), product_path(product), class: "manual-card-title" %>
+                  <% else %>
+                    <%= link_to product.name, product_path(product), class: "manual-card-title" %>
+                  <% end %>
+                </h4>
+              </div>
+
+              <div class="card-header-category">
+                <span class="category-clip badge badge-primary">
+                  <%= product.category %>
+                </span>
+              </div>
+            </div>
+
+            <div class="card-body shop-card-body">
+              <%= link_to image_tag(product.image.url(:thumb)), product_path(product) %>
+              <% k = product.score.floor()  %>
+              <div class="shop-bottom-line-wrap d-flex justify-content-center">
+                <p class="shop-bottom-line product-review">
+                  <%= product.score %> <br><%= '♥'*k %><%= '♡'* (5-k)%>
+                  <span class="reviews-count">(<%= product.reviews.count %>)</span>
+                </p>
+                <p class="shop-bottom-line product-price"><%= product.price %> 원</p>
+              </div>
+            </div>
+
+            <div class="card-bottom shop-card-bottom">
+              <%= time_ago_in_words(product.created_at) %> 전
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

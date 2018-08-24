@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  skintype: MyString
+  age: MyString
+  atopy: false
+  pimple: false
+  allergy: false
+  bb: false
+  lip: false
+  eyebrow: false
+  eyeline: false
+  color: false
+  skincolor: 1
+
+two:
+  skintype: MyString
+  age: MyString
+  atopy: false
+  pimple: false
+  allergy: false
+  bb: false
+  lip: false
+  eyebrow: false
+  eyeline: false
+  color: false
+  skincolor: 1

@@ -1,0 +1,56 @@
+<div align="right" class="category-btn">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      정렬하기
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/shopping/<%= 'price' %>">가격순</a>
+      <a class="dropdown-item" href="/shopping/<%= 'created' %>">최신순</a>
+      <a class="dropdown-item" href="/shopping/<%= 'review' %>">만족도</a>
+    </div>
+  </div>
+</div>
+<hr>
+
+<div class="row justify-content-center">
+  <% @products.each do |product| %>
+    <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+      <div class="card">
+
+        <div class="card-header shop-card-header d-flex justify-content-center">
+          <div class="card-header-title">
+            <h4>
+              <% if product.name.length > 6 %>
+                <%= link_to (product.name[0,6] + " .."), product_path(product), class: "manual-card-title" %>
+              <% else %>
+                <%= link_to product.name, product_path(product), class: "manual-card-title" %>
+              <% end %>
+            </h4>
+          </div>
+
+          <div class="card-header-category">
+            <span class="category-clip badge badge-primary">
+              <%= product.category %>
+            </span>
+          </div>
+        </div>
+
+        <div class="card-body shop-card-body">
+          <%= link_to image_tag(product.image.url(:thumb)), product_path(product) %>
+          <% k = product.score.floor()  %>
+          <div class="shop-bottom-line-wrap d-flex justify-content-center">
+            <p class="shop-bottom-line product-review">
+              <%= product.score %> <br><%= '♥'*k %><%= '♡'* (5-k)%>
+              <span class="reviews-count">(<%= product.reviews.count %>)</span>
+            </p>
+            <p class="shop-bottom-line product-price"><%= product.price %> 원</p>
+          </div>
+        </div>
+
+        <div class="card-bottom shop-card-bottom">
+          <%= time_ago_in_words(product.created_at) %> 전
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

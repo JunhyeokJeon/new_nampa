@@ -1,0 +1,12 @@
+<div class="users-wrap">
+  <h3 class="registration-title" align="center"><strong>남자의 파우치</strong></h3>
+
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-inputs regi-form">
+      <%= f.input :email, autofocus: true, placeholder: "이메일을 입력해주세요.", label: false, input_html: { autocomplete: 'off' }, class: "regi-input" %>
+      <%= f.input :password, placeholder: "비밀번호를 입력해주세요.", label: false, class: "regi-input" %>
+      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+      <%= f.button :submit, "로그인", class: "regi-submit-btn" %>
+    </div>
+  <% end %>
+</div>

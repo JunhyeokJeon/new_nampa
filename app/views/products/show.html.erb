@@ -1,0 +1,75 @@
+<div class="show-wrap">
+  <div class="show-header">
+    <span class="show-title"><%= @product.name %></span> <br>
+
+    <span class="badge badge-pill badge-secondary">
+      <%= @product.category %>
+    </span>
+    <span class="badge badge-pill badge-success">
+      <%= @product.skintype %>
+    </span>
+    <span class="badge badge-pill badge-success">
+      <%= @product.age %>
+    </span>
+     <!-- True인 값의 제목을 가져오는 함수 -->
+    <% product_menu = [@product.atopy, @product.pimple, @product.allergy, @product.bb, @product.lip, @product.eyebrow, @product.eyeline] %>
+    <% box =['atopy', 'pimple', 'allergy', 'bb', 'lip', 'eyebrow', 'eyeline'] %>
+    <% key = 0 %>
+    <% product_menu.each do |menu| %>
+      <% if menu == true %>
+        <span class="badge badge-pill badge-info">
+          <%= box[key] %>
+        </span>
+        <% key = key + 1 %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="show-body" style="width:300px;">
+    <%= @product.contents.html_safe %>
+  </div>
+
+  <div class="show-footer d-flex justify-content-center">
+    <div class="show-footer-left">
+      <p><%= time_ago_in_words(@product.created_at) %> 전</p>
+    </div>
+    <div class="show-footer-right">
+      <p>
+        <img style="height:25px;"
+             src="https://pbs.twimg.com/profile_images/975321969649336320/VuUg1XZy.jpg" />
+        <%= @product.reviews.count %>&nbsp
+        </p>
+    </div>
+  </div>
+
+  <div class="show-comments" >
+    <% @product.reviews.each do |r| %>
+      <div class="comments-line d-flex justify-content-center">
+        <div class="comments-line-left">
+          <strong><%= r.user.nickname %></strong>&nbsp
+          <!--별선택 했을 때와 안했을 때 댓글 폼의 차이를 주는 함수-->
+          <% n = r.rating %>
+          <% if r.rating == nil then %>
+            <span class="comments-contents"><%= r.review %></span>
+          <% else %>
+            <span class="comments-contents"><%= '★'*n %>&nbsp&nbsp|&nbsp&nbsp<%= r.review%></span>
+          <% end %>
+        </div>
+        <% if current_user == r.user %>
+          <div class="comments-line-middle">
+            <%= time_ago_in_words(r.created_at) %> 전
+          </div>
+
+          <div class="comments-line-right">
+            <a class="delete-comment" href="<%= product_review_path(@product, r) %>" data-method="delete" data-confirm="정말로 삭제하시겠습니까?">x</a>
+          </div>
+        <% else %>
+          <div class="comments-line-middle comments-line-middle-not">
+            <%= time_ago_in_words(r.created_at) %> 전
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <%= render "/reviews/form" %>
+  </div>
+</div>
